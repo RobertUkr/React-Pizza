@@ -3,22 +3,24 @@ import { Header } from "./components";
 import { Home, Cart } from "./pages";
 import { Route } from "react-router-dom";
 import axios from "axios";
+import { useDispatch } from "react-redux";
 
+import { setPizzas } from "./redux/actions/pizzas";
 
 function App() {
-  const [pizzas, setPizzas] = React.useState([]);
-
+  const dispatch = useDispatch();
+ 
   React.useEffect(() => {
     axios.get("http://localhost:3000/db.json").then(({ data }) => {
-      setPizzas(data.pizzas);
+      dispatch(setPizzas(data.pizzas));
     });
-  }, []);
+  }, [dispatch]);
 
   return (
     <div className="wrapper">
       <Header />
       <div className="content">
-        <Route path="/" render={() => <Home items={pizzas} />} exact />
+        <Route path="/"  component = {Home} exact />
         <Route path="/cart" component={Cart} exact />
       </div>
     </div>
