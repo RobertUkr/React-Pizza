@@ -2,9 +2,13 @@ import React from "react";
 import PropTypes from "prop-types";
 import classNames from "classnames";
 
-function PizzasBlock({ name, imageUrl, price, types, sizes }) {
+
+
+function PizzasBlock({ name, imageUrl, price, types, sizes, isLoading }) {
   const [activeType, setactiveType] = React.useState(types[0]);
   const [activeSize, setactiveSize] = React.useState(sizes[0]);
+
+ 
   const availableTypes = ["тонкое", "традиционное"];
   const availableSizes = [26, 30, 40];
   const onSelectType = (index) => {
@@ -13,6 +17,7 @@ function PizzasBlock({ name, imageUrl, price, types, sizes }) {
   const onSelectSize = (index) => {
     setactiveSize(index);
   };
+
   return (
     <div className="pizza-block">
       <img className="pizza-block__image" src={imageUrl} alt="Pizza" />
@@ -76,7 +81,15 @@ PizzasBlock.propTypes = {
   price: PropTypes.number.isRequired,
   types: PropTypes.arrayOf(PropTypes.number).isRequired,
   sizes: PropTypes.arrayOf(PropTypes.number).isRequired,
+  isLoading: PropTypes.bool,
+};
 
+PizzasBlock.defaultProps = {
+  name: "---",
+  price: 0,
+  types: [],
+  sizes: [],
+  isLoading: false,
 };
 
 export default PizzasBlock;
